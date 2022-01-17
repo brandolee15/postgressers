@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 //---------User model----------//
 const User = require('../models/User');
 const dayHabit = require('../models/dayHabits');
@@ -109,5 +110,9 @@ function getW(n) {
 }
 
 // -------- Add Habit -------- //
+
+const Habit = require('../models/Habit');
+const User = require('../models/User');
+
 
 
