@@ -17,5 +17,5 @@ const weekHabit = new mongoose.Schema({
         timestamps: true
 })
 
-const HabitWeek = mongoose.model('weekHabit', weekHabit);
-module.exports = HabitWeek;
+module.exports = mongoose.model('HabitWeek', weekHabit);
+

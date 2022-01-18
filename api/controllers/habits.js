@@ -172,7 +172,7 @@ router.post('/day', authenticateToken, (req, res) => {
 });
 
 //--------- Add Week Habit ----------//
-router.post('/week', (req, res) => {
+router.post('/week', authenticateToken, (req, res) => {
     //Change the day to week
     const { content } = req.body;
     const userName = req.user;
@@ -201,8 +201,8 @@ router.post('/week', (req, res) => {
         else {
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            // dates.push({ date: localISOTime });
-            const newHabit = new HabitDay({
+            console.log(userName);
+            const newHabit = new HabitWeek({
                 content: content,
                 userName: userName,
                 dates: localISOTime, 
