@@ -1,44 +1,49 @@
-const formDay = document.querySelector('#form-day');
+const formDay = document.querySelector('#daily-habit');
 const btnDay = document.querySelector('#submit-day');
-const formWeek = document.querySelector('#form-week');
+const formWeek = document.querySelector('#weekly-habit');
 const btnWeek = document.querySelector('#submit-week');
 
-//creating day habit
-function submitDay(e){
+formDay.addEventListener("submit", e => {
     e.preventDefault();
+    const content = e.target.dailyName.value;
+    submitDay(content);
+} )
 
-    const dayData = {
-        content: e.target.content.value
-    }
-    const options = {
-        method: 'POST', 
-        body: JSON.stringify(dayData),
-        headers: { "Content-Type": "application/json" }
+formWeek.addEventListener("submit", e => {
+    e.preventDefault();
+    const content = e.target.weeklyName.value;
+    submitWeek(content);
+})
+
+//creating day habit
+async function submitDay(content){
+    try {
+        const accessToken = localStorage.getItem('accessToken')
+        const post = { content: content };
+        const options = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
+            body: JSON.stringify(post)
+        };
+        const response = await fetch('http://localhost:3000/habits/day', options);
+    } catch (err) {
+        console.warn(err);
     };
-    fetch('http://localhost:3000/home/day', options)
-        .then(d => d.json())
-        .then(() => e.target.reset())
-        //append function
-        .catch(console.warn)
-
 };
 
 //creating week habit
-function submitWeek(e){
-    e.preventDefault();
-
-    const weekData = {
-        content: e.target.content.value
-    }
-    const options = {
-        method: 'POST', 
-        body: JSON.stringify(weekData),
-        headers: { "Content-Type": "application/json" }
+async function submitWeek(content){
+    try {
+        const accessToken = localStorage.getItem('accessToken')
+        const post = { content: content };
+        const options = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
+            body: JSON.stringify(post)
+        };
+        const response = await fetch('http://localhost:3000/habits/week', options);
+    } catch (err) {
+        console.warn(err);
     };
-    fetch('http://localhost:3000/home/week', options)
-        .then(d => d.json())
-        .then(() => e.target.reset())
-        //append function
-        .catch(console.warn)
 
 };

@@ -8,12 +8,14 @@ const dayHabit = new mongoose.Schema({
         type: String,
         required: true
     },
-    dates: [{
-        type: String,
-        complete: String
-    }]},{
+    dates: {
+        type: String
+    },
+    complete: {
+        type: Boolean
+    }},{
         timestamps: true
 })
 
-const HabitDay = mongoose.model('dayHabit', dayHabit);
-module.exports = HabitDay;
+module.exports = mongoose.model('HabitDay', dayHabit)
+

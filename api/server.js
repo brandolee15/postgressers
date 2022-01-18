@@ -54,6 +54,4 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => console.log(err)
 );
 
-
-
 module.exports = server;
