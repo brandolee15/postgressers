@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 //---------User model----------//
 const User = require('../models/User');
 const dayHabit = require('../models/dayHabits');
@@ -35,7 +34,6 @@ router.get("/home/day", (req, res) => {
 })
 
 // -------Get User Habits (Week) -----//
-
 router.get("/home/week", (req, res) => {
     userName = req.query.user
     User.findOne = ({
@@ -57,7 +55,6 @@ router.get("/home/week", (req, res) => {
 })
 
 // ------- Return Date String ------- //
-
 function getD(n) {
     let d = new Date();
     d.setDate(d.getDate() + n);
@@ -84,8 +81,6 @@ function getD(n) {
 
 
 // ------- Return Week String ------- //
-
-
 function getW(n) {
     let w = new Date();
     // let weekNum = Math.floor(w.setDate(w.getDate()/n));
@@ -205,3 +200,42 @@ router.post('/home/week', (req, res) => {
     })
 })
 
+//-------- Update Status of day habit completion ------------//
+router.get("/day-status-update", (req, res) => {
+    var d = req.query.date;
+    var id = req.query.id;
+    dayHabit.findById(id, (err, habit) => {
+        if (err) {
+            console.log("Error updating status!")
+        }
+        else {
+            let dates = dayHabit.dates;
+            let found = false;
+            dates.find(function (item, index) {
+                if (item.date === d) {
+                    if (item.complete === 'yes') {
+                        item.complete = 'no';
+                    }
+                    else if (item.complete === 'no') {
+                        item.complete = 'none'
+                    }
+                    else if (item.complete === 'none') {
+                        item.complete = 'yes'
+                    }
+                    found = true;
+                }
+            })
+            if (!found) {
+                dates.push({ date: d, complete: 'yes' })
+            }
+            dayHabit.dates = dates;
+            dayHabit.save()
+                .then(habit => {
+                    console.log(habit);
+                    res.redirect('back');
+                })
+                .catch(err => console.log(err));
+        }
+    })
+
+})
