@@ -1,20 +1,40 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 //---------User model----------//
 const User = require('../models/User');
 const HabitDay = require('../models/dayHabits');
 const HabitWeek = require('../models/weekHabits');
 
+//Authenticate function
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    //Authorization Bearer Token
+    if(token == null){
+        return res.sendStatus(401)
+    }
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err){
+            return res.sendStatus(403)
+        } else{
+            req.user = user
+            next()
+        }
+    })
+};
+
+
 // -------Get User Habits (Day) -----//
 var userName = ""
-router.get("/home/day", (req, res) => {
+router.get("/day", (req, res) => {
     userName = req.query.user
     User.findOne = ({
         userName: req.query.user
     })
     try { user => {
-        dayHabit.find({ userName: req.query.user });
+        HabitDay.find({ userName: req.query.user });
         var days = [];
         days.push(getD(0));
         days.push(getD(1));
@@ -32,7 +52,7 @@ router.get("/home/day", (req, res) => {
 })
 
 // -------Get User Habits (Week) -----//
-router.get("/home/week", (req, res) => {
+router.get("/week", (req, res) => {
     userName = req.query.user
     User.findOne = ({
         userName: req.query.user
@@ -103,13 +123,13 @@ function getW(n) {
 }
 
 // -------- Add Day Habit -------- //
-router.post('/home/day', (req, res) => {
+router.post('/day', authenticateToken, (req, res) => {
     const { content } = req.body;
-
-    dayHabit.findOne({ content: content, userName: userName }).then(dayHabit => {
-        if (dayHabit) {
+    const userName = req.user;
+    HabitDay.findOne({ content: content, userName: userName }).then(habit => {
+        if (habit) {
             //---------Update existing habit----------//
-            let dates = dayHabit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            let dates = habit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             dates.find(function (item, index) {
                 if (item.date === today) {
@@ -118,10 +138,10 @@ router.post('/home/day', (req, res) => {
                 }
                 else {
                     dates.push({ date: today, complete: 'none' });
-                    dayHabit.dates = dates;
-                    dayHabit.save()
+                    habit.dates = dates;
+                    habit.save()
                         .then(habit => {
-                            console.log(dayHabit);
+                            console.log(habit);
                             res.redirect('back');
                         })
                         .catch(err => console.log(err));
@@ -129,13 +149,14 @@ router.post('/home/day', (req, res) => {
             });
         }
         else {
-            let dates = [], tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            dates.push({ date: localISOTime, complete: 'none' });
-            const newHabit = new dayHabit({
-                content,
-                userName,
-                dates
+            // dates.push({ date: localISOTime });
+            const newHabit = new HabitDay({
+                content: content,
+                userName: userName,
+                dates: localISOTime, 
+                complete: false
             });
 
             //---------Save Habit----------//
@@ -151,13 +172,14 @@ router.post('/home/day', (req, res) => {
 });
 
 //--------- Add Week Habit ----------//
-router.post('/home/week', (req, res) => {
+router.post('/week', (req, res) => {
+    //Change the day to week
     const { content } = req.body;
-
-    weekHabit.findOne({ content: content, userName: userName }).then(weekHabit => {
-        if (weekHabit) {
+    const userName = req.user;
+    HabitDay.findOne({ content: content, userName: userName }).then(habit => {
+        if (habit) {
             //---------Update existing habit----------//
-            let dates = weekHabit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            let dates = habit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             dates.find(function (item, index) {
                 if (item.date === today) {
@@ -166,10 +188,10 @@ router.post('/home/week', (req, res) => {
                 }
                 else {
                     dates.push({ date: today, complete: 'none' });
-                    weekHabit.dates = dates;
-                    weekHabit.save()
+                    habit.dates = dates;
+                    habit.save()
                         .then(habit => {
-                            console.log(weekHabit);
+                            console.log(habit);
                             res.redirect('back');
                         })
                         .catch(err => console.log(err));
@@ -177,13 +199,14 @@ router.post('/home/week', (req, res) => {
             });
         }
         else {
-            let dates = [], tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            dates.push({ date: localISOTime, complete: 'none' });
-            const newHabit = new weekHabit({
-                content,
-                userName,
-                dates
+            // dates.push({ date: localISOTime });
+            const newHabit = new HabitDay({
+                content: content,
+                userName: userName,
+                dates: localISOTime, 
+                complete: false
             });
 
             //---------Save Habit----------//
@@ -202,12 +225,12 @@ router.post('/home/week', (req, res) => {
 router.get("/day-status-update", (req, res) => {
     var d = req.query.date;
     var id = req.query.id;
-    dayHabit.findById(id, (err, habit) => {
+    HabitDay.findById(id, (err, habit) => {
         if (err) {
             console.log("Error updating status!")
         }
         else {
-            let dates = dayHabit.dates;
+            let dates = HabitDay.dates;
             let found = false;
             dates.find(function (item, index) {
                 if (item.date === d) {
@@ -226,8 +249,8 @@ router.get("/day-status-update", (req, res) => {
             if (!found) {
                 dates.push({ date: d, complete: 'yes' })
             }
-            dayHabit.dates = dates;
-            dayHabit.save()
+            HabitDay.dates = dates;
+            HabitDay.save()
                 .then(habit => {
                     console.log(habit);
                     res.redirect('back');
