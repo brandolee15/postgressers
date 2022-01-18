@@ -3,10 +3,10 @@ myForm.addEventListener("submit", e => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-    postMessage(username, password);
+    signUpDatabase(username, password);
 });
 
-async function loginDatabase(username, password){
+async function signUpDatabase(username, password){
     try {
         const post = {userName: username, password: password};
         const options = {
