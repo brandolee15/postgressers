@@ -10,10 +10,10 @@ const dayHabit = new mongoose.Schema({
     },
     dates: [{
         type: String,
-        complete: string
+        complete: String
     }]},{
         timestamps: true
 })
 
-const Habit_day = mongoose.model('Habit', dayHabit);
-module.exports = Habit_day;
+const HabitDay = mongoose.model('dayHabit', dayHabit);
+module.exports = HabitDay;

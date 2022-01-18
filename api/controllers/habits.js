@@ -3,12 +3,10 @@ const router = express.Router();
 
 //---------User model----------//
 const User = require('../models/User');
-const dayHabit = require('../models/dayHabits');
-const weekHabit = require('../models/weekHabits');
-const Habit_day = require('../models/dayHabits');
+const HabitDay = require('../models/dayHabits');
+const HabitWeek = require('../models/weekHabits');
 
 // -------Get User Habits (Day) -----//
-
 var userName = ""
 router.get("/home/day", (req, res) => {
     userName = req.query.user
@@ -16,7 +14,7 @@ router.get("/home/day", (req, res) => {
         userName: req.query.user
     })
     try { user => {
-        dayHabit.find({ userName = req.query.user });
+        dayHabit.find({ userName: req.query.user });
         var days = [];
         days.push(getD(0));
         days.push(getD(1));
@@ -37,10 +35,10 @@ router.get("/home/day", (req, res) => {
 router.get("/home/week", (req, res) => {
     userName = req.query.user
     User.findOne = ({
-        userName = req.query.user
+        userName: req.query.user
     })
     try { user => {
-        weekHabit.find({ userName = req.query.user });
+        weekHabit.find({ userName: req.query.user });
         var weeks = [];
         weeks.push(getW(0));
         weeks.push(getW(7));
@@ -239,3 +237,5 @@ router.get("/day-status-update", (req, res) => {
     })
 
 })
+
+module.exports = router
