@@ -8,14 +8,14 @@ const weekHabit = new mongoose.Schema({
         type: String,
         required: true
     },
-    dates: [{
-        type: String,
-        complete: String
-    }],
+    dates: {
+        type: String
     },
-    {
+    complete: {
+        type: Boolean
+    }},{
         timestamps: true
-    });
+})
 
 const HabitWeek = mongoose.model('weekHabit', weekHabit);
 module.exports = HabitWeek;

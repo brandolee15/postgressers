@@ -176,7 +176,7 @@ router.post('/week', (req, res) => {
     //Change the day to week
     const { content } = req.body;
     const userName = req.user;
-    HabitDay.findOne({ content: content, userName: userName }).then(habit => {
+    HabitWeek.findOne({ content: content, userName: userName }).then(habit => {
         if (habit) {
             //---------Update existing habit----------//
             let dates = habit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
