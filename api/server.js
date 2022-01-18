@@ -3,12 +3,14 @@ const cors = require('cors');
 const { builtinModules } = require('module');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const db = require('./config/keys').MongoURI;
-
+const db = require('../config/keys').MongoURI;
+const mongoose = require('mongoose');
 const server = express();
 
 server.use(cors());
 server.use(express.json());
+
+server.get('/', (req, res) => res.send('Helllo Postgressers!'))
 
 server.get('/habits', authenticateToken, (req, res) => {
     res.json(habits.filter(habit.UserName===req.user.UserName))

@@ -15,15 +15,15 @@ router.get('/login', (req, res) => async (req, res) => {
 
 //log in post
 router.post('/login', (req, res) => {
-    const {UserName, password} = req.body 
+    const {userName, password} = req.body 
     try {
         const user = await User.findOne({
-            UserName: UserName
+            userName: userName
         })
         if(!user){ throw new Error('No user with this user name') }
         const authed = bcrypt.compare(req.body.password, user.passwordDigest)
         if (!!authed){
-            res.status(200).json({ user: user.UserName })
+            res.status(200).json({ user: user.userName })
         } else {
             throw new Error('User could not be authenticated')  
         }
