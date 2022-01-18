@@ -41,10 +41,17 @@ router.post('/login', async (req, res) => {
 //register post 
 router.post('/register', async (req, res) => {
     try {
-        const salt = await bcrypt.genSalt(); // generate salt
-        const hashed = await bcrypt.hash(req.body.password, salt); // hash password and add salt
-        await User.create({...req.body, password: hashed}); // insert new user into db
-        res.status(201).json({msg: 'User created'});
+        const user = await User.findOne({
+        userName: req.body.userName
+        })
+        if(!!user) {
+            res.status(409).json({msg: 'Username already exists'})
+        } else {
+            const salt = await bcrypt.genSalt(); // generate salt
+            const hashed = await bcrypt.hash(req.body.password, salt); // hash password and add salt
+            await User.create({...req.body, password: hashed}); // insert new user into db
+            res.status(201).json({msg: 'User created'});
+        }
     } catch (err) {
         res.status(500).json({err});
     }
