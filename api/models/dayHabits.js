@@ -4,7 +4,7 @@ const dayHabit = new mongoose.Schema({
         type: String,
         required: true 
     },
-    userId: {
+    userName: {
         type: String,
         required: true
     },

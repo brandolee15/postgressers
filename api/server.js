@@ -10,6 +10,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+server.get('/', (req, res) => res.send('Helllo Postgressers!'))
+
 server.get('/habits', authenticateToken, (req, res) => {
     res.json(habits.filter(habit.UserName===req.user.UserName))
 })
