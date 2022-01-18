@@ -14,7 +14,7 @@ router.get('/login', (req, res) => async (req, res) => {
 })
 
 //log in post
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const {userName, password} = req.body 
     try {
         const user = await User.findOne({
