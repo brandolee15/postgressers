@@ -3,10 +3,15 @@ const btnDay = document.querySelector('#submit-day');
 const formWeek = document.querySelector('#form-week');
 const btnWeek = document.querySelector('#submit-week');
 
-//creating day habit
-function submitDay(e){
+formDay.addEventListener("submit", e => {
     e.preventDefault();
+    const content = e.target.content.value;
+    submitDay(content);
+} )
 
+//creating day habit
+function submitDay(content){
+    
     const dayData = {
         content: e.target.content.value
     }
@@ -24,9 +29,7 @@ function submitDay(e){
 };
 
 //creating week habit
-function submitWeek(e){
-    e.preventDefault();
-
+function submitWeek(){
     const weekData = {
         content: e.target.content.value
     }

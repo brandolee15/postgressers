@@ -1,0 +1,10 @@
+GET http://localhost:3000/habit/day
+Authorization: Bearer
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "userName": "Brandon"
+}
