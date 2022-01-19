@@ -17,6 +17,7 @@ async function loginDatabase(username, password){
         const response = await fetch('http://localhost:3000/login', options);
         const data = await response.json();
         localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('username', username);
         if(response.status === 200){
             window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
         } else {
