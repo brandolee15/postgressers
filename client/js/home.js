@@ -9,8 +9,7 @@ async function setDayHabbits(){
         const accessToken = localStorage.getItem('accessToken')
         const options = {
             method: 'GET',
-            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
-            body: ""
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken }
         };
         const response = await fetch('http://localhost:3000/habits/day', options);
         const data = await response.json();
@@ -30,8 +29,7 @@ async function setWeekHabbits(){
         const accessToken = localStorage.getItem('accessToken')
         const options = {
             method: 'GET',
-            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
-            body: ""
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken }
         };
         const response = await fetch('http://localhost:3000/habits/week', options);
         const data = await response.json();
