@@ -28,30 +28,37 @@ function authenticateToken(req, res, next) {
 
 
 // -------Get User Habits (Day) -----//
-var userName = ""
-router.get("/day", (req, res) => {
-    userName = req.query.user
-    User.findOne = ({
-        userName: req.query.user
-    })
-    try { async user => {
-      const habits = await HabitDay.find({ userName: req.query.user });
-        var days = [];
-        days.push(getD(0));
-        days.push(getD(1));
-        days.push(getD(2));
-        days.push(getD(3));
-        days.push(getD(4));
-        days.push(getD(5));
-        days.push(getD(6));
-        res.status(200).json(userName)
-        res.json(habits)
-    }
+router.get("/day", authenticateToken, (req, res) => {
+    let userName = req.user
+    HabitDay.find({ userName: userName }).then(habits => {
+        if (!habits) {
+            err = 'No habits found'
+            res.json(err)
+        }
+        else {res.json(habits)}
 
-    } catch(err) {
-        res.status(404).json({err})
-    }
-})
+
+    })})
+
+    
+    // try { async user => {
+    //   const habits = await HabitDay.find({ userName: req.query.user });
+    //     var days = [];
+    //     days.push(getD(0));
+    //     days.push(getD(1));
+    //     days.push(getD(2));
+    //     days.push(getD(3));
+    //     days.push(getD(4));
+    //     days.push(getD(5));
+    //     days.push(getD(6));
+    //     res.status(200).json(userName)
+    //     res.json(habits)
+    // }
+
+    // } catch(err) {
+    //     res.status(404).json({err})
+    // }
+
 
 // -------Get User Habits (Week) -----//
 router.get("/week", (req, res) => {
