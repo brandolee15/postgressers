@@ -16,6 +16,7 @@ async function loadContentDay() {
             for (let i = 0; i < data.length; i++) {
                 const habit = data[i].content
                 console.log(habit)
+                console.log(data[i].dates)
                 let entry = document.createElement('div');
                 entry.setAttribute('class', 'row')
                 habitGrid.appendChild(entry);

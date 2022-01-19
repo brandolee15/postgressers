@@ -61,25 +61,32 @@ router.get("/day", authenticateToken, (req, res) => {
 
 
 // -------Get User Habits (Week) -----//
-router.get("/week", (req, res) => {
-    userName = req.query.user
-    User.findOne = ({
-        userName: req.query.user
-    })
-    try { user => {
-        weekHabit.find({ userName: req.query.user });
-        var weeks = [];
-        weeks.push(getW(0));
-        weeks.push(getW(7));
-        weeks.push(getW(14));
-        weeks.push(getW(21));
-        res.status(200).json(userName)
-    }
+router.get("/week", authenticateToken, (req, res) => {
+   
+    let userName = req.user
+    HabitWeek.find({ userName: userName }).then(habits => {
+        if (!habits) {
+            err = 'No habits found'
+            res.json(err)
+        }
+        else {res.json(habits)}
 
-    } catch(err) {
-        res.status(404).json({err})
-    }
-})
+
+    })})
+    // try { user => {
+    //     weekHabit.find({ userName: req.query.user });
+    //     var weeks = [];
+    //     weeks.push(getW(0));
+    //     weeks.push(getW(7));
+    //     weeks.push(getW(14));
+    //     weeks.push(getW(21));
+    //     res.status(200).json(userName)
+    // }
+
+    // } catch(err) {
+    //     res.status(404).json({err})
+    // }
+// })
 
 // ------- Return Date String ------- //
 function getD(n) {
@@ -103,7 +110,7 @@ function getD(n) {
         case 6: day = 'Sat';
             break;
     }
-    return { date: newDate, day };
+    return (newDate);
 }
 
 
@@ -138,15 +145,16 @@ router.post('/day', authenticateToken, (req, res) => {
     HabitDay.findOne({ content: content, userName: userName }).then(habit => {
         if (habit) {
             //---------Update existing habit----------//
-            let dates = habit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
-            var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+            // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            // var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             dates.find(function (item, index) {
+
                 if (item.date === today) {
                     console.log("Habit already exists!")
                     res.redirect('back');
                 }
                 else {
-                    dates.push({ date: today, complete: 'none' });
+                    dates.push({ date: today, complete: false });
                     habit.dates = dates;
                     habit.save()
                         .then(habit => {
@@ -164,8 +172,13 @@ router.post('/day', authenticateToken, (req, res) => {
             const newHabit = new HabitDay({
                 content: content,
                 userName: userName,
-                dates: localISOTime, 
-                complete: false
+                dates: [{date: getD(0), complete: false},
+                        {date: getD(1), complete: false},
+                        {date: getD(2), complete: false},
+                        {date: getD(3), complete: false},
+                        {date: getD(4), complete: false},
+                        {date: getD(5), complete: false},
+                        {date: getD(6), complete: false}]
             });
 
             //---------Save Habit----------//
@@ -209,7 +222,7 @@ router.post('/week', authenticateToken, (req, res) => {
         }
         else {
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-            var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+            var localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
             console.log(userName);
             const newHabit = new HabitWeek({
                 content: content,
@@ -231,39 +244,96 @@ router.post('/week', authenticateToken, (req, res) => {
 })
 
 //-------- Update Status of day habit completion ------------//
-router.get("/day-status-update", (req, res) => {
-    var d = req.query.date;
-    var id = req.query.id;
-    HabitDay.findById(id, (err, habit) => {
-        if (err) {
-            console.log("Error updating status!")
-        }
-        else {
-            let dates = HabitDay.dates;
-            let found = false;
-            dates.find(function (item, index) {
-                if (item.date === d) {
-                    if (item.complete === 'yes') {
-                        item.complete = 'no';
-                    }
-                    else if (item.complete === 'no') {
-                        item.complete = 'yes'
-                    }
-                    found = true;
-                }
-            })
-            if (!found) {
-                dates.push({ date: d, complete: 'yes' })
+router.put("/day", authenticateToken, (req, res) => { 
+    let content = req.body.content;
+    let d = req.body.date;
+    
+    let userName = req.user;
+    let filter = { content: content, userName: userName}
+
+
+    HabitDay.findOne(filter).then( async habit => {
+
+        for ( i = 0; i < habit.dates.length; i ++) {
+            if (habit.dates[i].date === d) {
+            habit.dates[i].complete = true;
+            habit = await habit.save()
             }
-            HabitDay.dates = dates;
-            HabitDay.save()
-                .then(habit => {
-                    console.log(habit);
-                    res.redirect('back');
-                })
-                .catch(err => console.log(err));
         }
+        
     })
+})
+
+    //-------- Update Status of week habit completion ------------//
+router.put("/week", authenticateToken, (req, res) => { 
+    let content = req.body.content;
+    let d = req.body.date;
+    
+    let userName = req.user;
+    let filter = { content: content, userName: userName}
+
+
+    HabitWeek.findOne(filter).then( async habit => {
+
+        for ( i = 0; i < habit.dates.length; i ++) {
+            if (habit.dates[i].date === d) {
+            habit.dates[i].complete = true;
+            habit = await habit.save()
+            }
+        }
+        
+    })
+     
+     
+    //  .then(  habit => {
+    //      console.log(habit.userName)
+    //     for ( i = 0; i < habit.dates.length; i ++) {
+    //         console.log(habit.dates)
+    //         if (habit.dates[i].date = d) {
+    //             habit.dates.complete = true
+    //         }          
+    //         else {
+    //             res.status(404)
+    //         }
+    //     }
+    // }) 
+
+
+    
+    
+    
+    
+    // var id = req.query.id;
+    // HabitDay.findById(id, (err, habit) => {
+    //     if (err) {
+    //         console.log("Error updating status!")
+    //     }
+    //     else {
+    //         let dates = HabitDay.dates;
+    //         let found = false;
+    //         dates.find(function (item, index) {
+    //             if (item.date === d) {
+    //                 if (item.complete === 'yes') {
+    //                     item.complete = 'no';
+    //                 }
+    //                 else if (item.complete === 'no') {
+    //                     item.complete = 'yes'
+    //                 }
+    //                 found = true;
+    //             }
+    //         })
+    //         if (!found) {
+    //             dates.push({ date: d, complete: 'yes' })
+    //         }
+    //         HabitDay.dates = dates;
+    //         HabitDay.save()
+    //             .then(habit => {
+    //                 console.log(habit);
+    //                 res.redirect('back');
+    //             })
+    //             .catch(err => console.log(err));
+    //     }
+    // })
 
 })
 

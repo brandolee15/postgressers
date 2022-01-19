@@ -10,7 +10,7 @@ const dayHabit = new mongoose.Schema({
     },
     dates: [{
         date: String,
-        complete: String
+        complete: Boolean
     }]
     },{
         timestamps: true
