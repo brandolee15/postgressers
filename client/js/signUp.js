@@ -15,10 +15,13 @@ async function signUpDatabase(username, password){
             body: JSON.stringify(post)
         };
         const response = await fetch('http://localhost:3000/register', options);
-        const data = await response.json();
-        localStorage.setItem('accessToken', data.accessToken);
-        if(response.status === 200) {
+        
+        if(response.status === 201) {
+            const data = await response.json();
+            localStorage.setItem('accessToken', data.accessToken);
             window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
+        } else if(response.status === 409) {
+            alert('Username already exists!')
         }
     } catch (err) {
         console.warn(err);

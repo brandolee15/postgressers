@@ -1,4 +1,4 @@
-document.getElementById('#logout').addEventListener("click", myFunction);
+document.getElementById('logout').addEventListener("click", logOutDatabase);
 
 function logOutDatabase() {
     localStorage.clear();

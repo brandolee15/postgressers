@@ -1,0 +1,166 @@
+h1{
+    color: white;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 10%;
+}
+
+
+
+.login {
+    font-family: 'Be Vietnam Pro', sans-serif;
+
+}
+
+.container-fluid {
+    color: black;
+}
+
+.homepage{
+    background-image: url("assets/background\ image.jpeg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* filter: blur(8px);
+    -webkit-filter: blur(8px); */
+
+}
+h3, h6{
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+.h3{
+    color: white;
+    font-size: 15px;
+}
+
+button{
+    align-items: center;
+}
+
+.navbar{ 
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color:black;
+
+}
+
+/* small screen
+@media only screen and (max-width: 600px) {
+
+} */
+
+/* large screen */
+/* @media only screen and (min-width: 600px) {
+    .navbar{
+        top: 0;
+        width: 5rem;
+        height: 100vh;
+    /* } */
+/* } */
+
+.navbar-custom {
+    background-color: green;
+}
+
+.homebar{
+    /* background-color: #93B297; */
+    background-color: #EA7C15;
+}
+
+.names{
+    color: black;
+}
+.tab-content{
+    background-color: transparent;
+}
+
+.backgr{
+    /* background-color: #b1c7b4; */
+    background-color: #EE9644;
+    
+}
+.text{
+    color: white;
+}
+
+.heading{
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 20px;
+    
+}
+.logo{
+    border-radius: 80px;
+    align-items: center;
+    margin-left: 70px;
+    margin-bottom: 10px;
+
+}
+.habitat-container {
+    color         : white;
+    position      : absolute;
+    top           : 350px;
+    left          : 60%;
+    padding       : 20px;
+    width         : 1000px;
+    transform     : translate(-50%, -50%);
+    background    : rgba(255, 255, 255, 0.1);
+    border-radius : 20px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, .15s ease-in-out;
+}
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    background: 0 0;
+    background-color: #FC9210;
+    background-color: #FC5D0A;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.btn{
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.habitat-container1 {
+    color         : white;
+    position      : fixed;
+    top           : 350px;
+    left          : 50%;
+    padding       : 20px;
+    width         : 500px;
+    transform     : translate(-50%, -50%);
+    background    : rgba(255, 255, 255, 0.1);
+    border-radius : 20px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+.habitat-container2 {
+    color         : white;
+    position      : fixed;
+    top           : 350px;
+    left          : 50%;
+    padding       : 20px;
+    width         : 300px;
+    transform     : translate(-50%, -50%);
+    background    : rgba(255, 255, 255, 0.1);
+    border-radius : 20px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
