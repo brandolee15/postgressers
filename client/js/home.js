@@ -1,6 +1,7 @@
 function setUsername(){
     const username = localStorage.getItem('username')
-    document.getElementById('#user-header').textContent += username;
+    console.log(username)
+    document.getElementById('user-name').textContent += username;
 };
 
 setUsername()
