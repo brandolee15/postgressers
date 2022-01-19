@@ -3,7 +3,7 @@ myForm.addEventListener("submit", e => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-    postMessage(username, password);
+    loginDatabase(username, password);
 });
 
 async function loginDatabase(username, password){
@@ -15,8 +15,16 @@ async function loginDatabase(username, password){
             body: JSON.stringify(post)
         };
         const response = await fetch('http://localhost:3000/login', options);
-        window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
+        const data = await response.json();
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('username', username);
+        if(response.status === 200){
+            window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
+        } else {
+            alert("Invalid username/password")
+        }
     } catch (err) {
         console.warn(err);
+        
     };
 };

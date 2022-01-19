@@ -7,10 +7,16 @@ const db = require('../config/keys').MongoURI;
 const mongoose = require('mongoose');
 const server = express();
 
+const userRoutes = require('./controllers/users');
+const habitRoutes = require('./controllers/habits');
+
 server.use(cors());
 server.use(express.json());
 
-server.get('/', (req, res) => res.send('Helllo Postgressers!'))
+server.use('/', userRoutes);
+server.use('/habits', habitRoutes);
+
+server.get('/', (req, res) => res.send('Hello Postgressers!'))
 
 server.get('/habits', authenticateToken, (req, res) => {
     res.json(habits.filter(habit.UserName===req.user.UserName))

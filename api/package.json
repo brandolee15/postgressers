@@ -26,5 +26,7 @@
     "mongoose": "^6.1.7",
     "nodemon": "^2.0.15"
   },
-  "description": ""
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
+  }
 }
