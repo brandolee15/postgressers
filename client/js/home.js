@@ -15,7 +15,7 @@ async function setDayHabbits(){
         const response = await fetch('http://localhost:3000/habits/day', options);
         const data = await response.json();
         const dayList = document.getElementById('day-list')
-        for (let i = 0; i < data.habbits.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let node = document.createElement('li');
             node.appendChild(document.createTextNode(data.habbits[i].content));
             dayList.appendChild(node);
@@ -36,7 +36,7 @@ async function setWeekHabbits(){
         const response = await fetch('http://localhost:3000/habits/week', options);
         const data = await response.json();
         const dayList = document.getElementById('week-list')
-        for (let i = 0; i < data.habbits.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let node = document.createElement('li');
             node.appendChild(document.createTextNode(data.habbits[i].content));
             dayList.appendChild(node);
