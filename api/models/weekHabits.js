@@ -8,7 +8,7 @@ const weekHabit = new mongoose.Schema({
         type: String,
         required: true
     },
-    dates: {
+    date: {
         type: String
     },
     complete: {
