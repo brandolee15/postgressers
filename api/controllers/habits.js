@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const HabitDay = require('../models/dayHabits');
 const HabitWeek = require('../models/weekHabits');
+const dayHabits = require('../models/dayHabits');
 
 //Authenticate function
 function authenticateToken(req, res, next) {
@@ -33,8 +34,8 @@ router.get("/day", (req, res) => {
     User.findOne = ({
         userName: req.query.user
     })
-    try { user => {
-        HabitDay.find({ userName: req.query.user });
+    try { async user => {
+      const habits = await HabitDay.find({ userName: req.query.user });
         var days = [];
         days.push(getD(0));
         days.push(getD(1));
@@ -44,6 +45,7 @@ router.get("/day", (req, res) => {
         days.push(getD(5));
         days.push(getD(6));
         res.status(200).json(userName)
+        res.json(habits)
     }
 
     } catch(err) {
@@ -238,9 +240,6 @@ router.get("/day-status-update", (req, res) => {
                         item.complete = 'no';
                     }
                     else if (item.complete === 'no') {
-                        item.complete = 'none'
-                    }
-                    else if (item.complete === 'none') {
                         item.complete = 'yes'
                     }
                     found = true;
