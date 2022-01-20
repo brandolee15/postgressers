@@ -18,7 +18,7 @@ async function setDayHabbits(){
         const dayList = document.getElementById('day-list')
         for (let i = 0; i < data.length; i++) {
             let node = document.createElement('li');
-            node.appendChild(document.createTextNode(data[i].content));
+            node.appendChild(document.createTextNode(data[i].content + " - " + data[i].streak + " "));
             dayList.appendChild(node);
             // create check buttons 
             let done = document.createElement('button');
@@ -68,7 +68,7 @@ async function setWeekHabbits(){
         const dayList = document.getElementById('week-list')
         for (let i = 0; i < data.length; i++) {
             let node = document.createElement('li');
-                node.appendChild(document.createTextNode(data[i].content));
+                node.appendChild(document.createTextNode(data[i].content + " - " + data[i].streak + " "));
                 dayList.appendChild(node);
 
                  // create check buttons 
