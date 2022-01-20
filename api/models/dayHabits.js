@@ -8,12 +8,11 @@ const dayHabit = new mongoose.Schema({
         type: String,
         required: true
     },
-    dates: {
-        type: String
-    },
-    complete: {
-        type: Boolean
-    }},{
+    dates: [{
+        date: String,
+        complete: Boolean
+    }]
+    },{
         timestamps: true
 })
 
