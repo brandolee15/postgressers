@@ -53,3 +53,5 @@ async function submitWeek(content){
     };
 
 };
+
+module.exports = { submitDay, submitWeek };

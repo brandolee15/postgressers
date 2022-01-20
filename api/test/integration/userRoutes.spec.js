@@ -1,22 +1,21 @@
-// const { request } = require("../../index");
+const request = require('supertest');
+const app = require('../../index')
 
-// describe('users endpoints', () => {
-//     let api; 
-//     beforeEach(async () => {
-//         await resetTestDB()
-//     });
+describe('Users API', () => {
+    let api; 
+    
+    beforeAll(async () => {
+        api = app.listen(6000, () => console.log('Test server running on port 6000'))
+    });
 
-//     beforeAll(async () => {
-//         api = app.listen(5000, () => console.log('Test server running on port 5000'))
-//     });
+    afterAll(async () => {
+        console.log('Stopping test server on port 6000')
+        await api.close()
+    })
 
-//     afterAll(async () => {
-//         console.log('Stopping test server on port 5000')
-//         await api.close()
-//     })
-
-//     it('should return a list of all users in database', async () => {
-//         const res = await request(api).get('/users');
-//         expect(res.statusCode).toEqual(200);
-//     })
-// })
+    it('should return username', async () => {
+        const res = await request(api).get('/login')
+        .set('Authorization', 'bearer ' + 'eyJhbGciOiJIUzI1NiJ9.dGVzdDEyMw.fxmS2pDF5dWSxXXf5v5qokjsypiRpjQrP0rMGxld8Dc')
+        .expect(200)
+    })
+})
