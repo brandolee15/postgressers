@@ -1,4 +1,4 @@
 const accessToken = localStorage.getItem('accessToken');
 if (!accessToken) {
-    window.open('https://habit-at/index.html', '_self');
+    window.open('https://habit-at.netlify.app/index.html', '_self');
 };
