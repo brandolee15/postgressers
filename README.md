@@ -10,7 +10,7 @@
 - Fork repo
 - git clone 
 - `cd postgressers`
-- `cd `api`
+- `cd api`
 - `npm install`
 - `npm start`
 - Open `index.html`
@@ -30,4 +30,3 @@
 - Tracking habits
 - Resetting habits every week
 - Responsiveness for mobile 
-- 
