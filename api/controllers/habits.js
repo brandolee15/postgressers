@@ -275,12 +275,12 @@ router.put("/week", authenticateToken, (req, res) => {
 
     HabitWeek.findOne(filter).then( async habit => {
 
-        for ( i = 0; i < habit.dates.length; i ++) {
-            if (habit.dates[i].date === d) {
-            habit.dates[i].complete = true;
+        // for ( i = 0; i < habit.dates.length; i ++) {
+        //     if (habit.dates[i].date === d) {
+            habit.complete = true;
             habit = await habit.save()
-            }
-        }
+        //     }
+        // }
         
     })
      
