@@ -68,10 +68,8 @@ async function setWeekHabbits(){
 
                  // create check buttons 
             let done = document.createElement('button');
-            // let notDone = document.createElement('button');
             done.setAttribute('id', `done${data[i].content}`);
-            done.createAttribute('class', 'done')
-            // notDone.setAttribute('id', `notDone${data[i].content}`);
+            done.setAttribute('class', 'done')
             node.appendChild(done);
             done.textContent = 'b'
 
