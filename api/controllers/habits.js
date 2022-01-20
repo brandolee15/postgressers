@@ -26,7 +26,6 @@ function authenticateToken(req, res, next) {
     })
 };
 
-
 // -------Get User Habits (Day) -----//
 router.get("/day", authenticateToken, (req, res) => {
     let userName = req.user
@@ -39,26 +38,6 @@ router.get("/day", authenticateToken, (req, res) => {
 
 
     })})
-
-    
-    // try { async user => {
-    //   const habits = await HabitDay.find({ userName: req.query.user });
-    //     var days = [];
-    //     days.push(getD(0));
-    //     days.push(getD(1));
-    //     days.push(getD(2));
-    //     days.push(getD(3));
-    //     days.push(getD(4));
-    //     days.push(getD(5));
-    //     days.push(getD(6));
-    //     res.status(200).json(userName)
-    //     res.json(habits)
-    // }
-
-    // } catch(err) {
-    //     res.status(404).json({err})
-    // }
-
 
 // -------Get User Habits (Week) -----//
 router.get("/week", authenticateToken, (req, res) => {
@@ -73,20 +52,6 @@ router.get("/week", authenticateToken, (req, res) => {
 
 
     })})
-    // try { user => {
-    //     weekHabit.find({ userName: req.query.user });
-    //     var weeks = [];
-    //     weeks.push(getW(0));
-    //     weeks.push(getW(7));
-    //     weeks.push(getW(14));
-    //     weeks.push(getW(21));
-    //     res.status(200).json(userName)
-    // }
-
-    // } catch(err) {
-    //     res.status(404).json({err})
-    // }
-// })
 
 // ------- Return Date String ------- //
 function getD(n) {
@@ -113,15 +78,9 @@ function getD(n) {
     return (newDate);
 }
 
-
 // ------- Return Week String ------- //
 function getW(n) {
     let w = new Date();
-    // let weekNum = Math.floor(w.setDate(w.getDate()/n));
-    // let week = (w.setDate(w.getDate()))
-    // let dayNum = w.toLocaleDateString('en-GB').split('/').pop().pop();
-    // var weekNum = Math.floor(dayNum)
-    // var week;
     w.setDate(w.getDate() + n);
     var newDate = d.toLocaleDateString('en-GB').split( '/' ).reverse( ).join( '-' );
     var week;
@@ -145,8 +104,6 @@ router.post('/day', authenticateToken, (req, res) => {
     HabitDay.findOne({ content: content, userName: userName }).then(habit => {
         if (habit) {
             //---------Update existing habit----------//
-            // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-            // var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             dates.find(function (item, index) {
 
                 if (item.date === today) {
@@ -269,7 +226,7 @@ router.put("/day", authenticateToken, (req, res) => {
     })
 })
 
-    //-------- Update Status of week habit completion ------------//
+//-------- Update Status of week habit completion ------------//
 router.put("/week", authenticateToken, (req, res) => { 
     let content = req.body.content;
     let d = req.body.date;
@@ -283,58 +240,6 @@ router.put("/week", authenticateToken, (req, res) => {
         habit.complete = true;
         habit = await habit.save()  
     })
-     
-     
-    //  .then(  habit => {
-    //      console.log(habit.userName)
-    //     for ( i = 0; i < habit.dates.length; i ++) {
-    //         console.log(habit.dates)
-    //         if (habit.dates[i].date = d) {
-    //             habit.dates.complete = true
-    //         }          
-    //         else {
-    //             res.status(404)
-    //         }
-    //     }
-    // }) 
-
-
-    
-    
-    
-    
-    // var id = req.query.id;
-    // HabitDay.findById(id, (err, habit) => {
-    //     if (err) {
-    //         console.log("Error updating status!")
-    //     }
-    //     else {
-    //         let dates = HabitDay.dates;
-    //         let found = false;
-    //         dates.find(function (item, index) {
-    //             if (item.date === d) {
-    //                 if (item.complete === 'yes') {
-    //                     item.complete = 'no';
-    //                 }
-    //                 else if (item.complete === 'no') {
-    //                     item.complete = 'yes'
-    //                 }
-    //                 found = true;
-    //             }
-    //         })
-    //         if (!found) {
-    //             dates.push({ date: d, complete: 'yes' })
-    //         }
-    //         HabitDay.dates = dates;
-    //         HabitDay.save()
-    //             .then(habit => {
-    //                 console.log(habit);
-    //                 res.redirect('back');
-    //             })
-    //             .catch(err => console.log(err));
-    //     }
-    // })
-
 })
 
 module.exports = router

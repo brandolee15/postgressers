@@ -1,6 +1,3 @@
-
-
-
 function setUsername(){
     const username = localStorage.getItem('username')
     document.getElementById('user-name').textContent += username;
@@ -27,12 +24,10 @@ async function setDayHabbits(){
             done.textContent = 'b'
             let content = data[i].content;
 
-
             // add event listener to buttons 
-
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            data.dates.forEach(e => {
+            data[i].dates.forEach(e => {
                 if (e.date === date && e.complete === true) {
                     done.disabled = true;
                 };
@@ -43,13 +38,11 @@ async function setDayHabbits(){
                 method: 'PUT',
                 headers: {'Content-Type' : 'application/JSON', "Authorization": "Bearer " + accessToken },
                 body: JSON.stringify(e)
-              
               }
               fetch('http://localhost:3000/habits/day', options)
               .then((response) => response.json())
               .then(done.disabled = true );
             })
-
         };
     } catch (err) {
         console.warn(err);
@@ -71,21 +64,18 @@ async function setWeekHabbits(){
                 node.appendChild(document.createTextNode(data[i].content + " - " + data[i].streak + " "));
                 dayList.appendChild(node);
 
-                 // create check buttons 
+            // create check buttons 
             let done = document.createElement('button');
             done.setAttribute('id', `done${data[i].content}`);
             done.setAttribute('class', 'done')
             node.appendChild(done);
             done.textContent = 'b'
-
             let content = data[i].content;
 
-
             // add event listener to buttons 
-
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
-            if (data.date === date && data.complete === true) {
+            if (data[i].complete === true) {
                 done.disabled = true;
             };
             done.addEventListener('click', e => {

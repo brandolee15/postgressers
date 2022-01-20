@@ -25,6 +25,5 @@ async function loginDatabase(username, password){
         }
     } catch (err) {
         console.warn(err);
-        
     };
 };

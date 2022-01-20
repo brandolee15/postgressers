@@ -9,7 +9,6 @@ const habitGridWeek = document.getElementById('habitGridWeek');
 }
 
 async function loadContentDay() {
-
             const accessToken = localStorage.getItem('accessToken')
             const options = {
                 method: 'GET',
@@ -18,11 +17,8 @@ async function loadContentDay() {
             };
             const response = await fetch('http://localhost:3000/habits/day', options);
             const data = await response.json();
-            // console.log(data)
             for (let i = 0; i < data.length; i++) {
                 const habit = data[i].content
-                // console.log(habit)
-                // console.log(data[i].dates)
                 let entry = document.createElement('div');
                 entry.setAttribute('class', 'row');
                 entry.setAttribute('id', `${data[i].content}`);
@@ -41,7 +37,6 @@ async function loadContentDay() {
                     checkbox.setAttribute('style', 'border:1px solid #000000 !important')
                     entry.appendChild(checkbox)
                     let dayOfWeek = getDayName(data[i].dates[j].date)
-                
                         if (data[i].dates[j].complete == true) {
                         document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = 'blue';
                         document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'complete!'
@@ -51,27 +46,20 @@ async function loadContentDay() {
                             document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'not done yet'
                         }
                 }
-                
-            }
-
-      
+            }  
 }
 
 async function loadcontentWeek () {
-
             const accessToken = localStorage.getItem('accessToken')
             const options = {
                 method: 'GET',
                 headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
-                
             };
             const response = await fetch('http://localhost:3000/habits/week', options);
             const data = await response.json();
             console.log(data)
             for (let i = 0; i < data.length; i++) {
                 const habit = data[i].content
-                // console.log(habit)
-                // console.log(data[i].dates)
                 let entry = document.createElement('div');
                 entry.setAttribute('class', 'row');
                 entry.setAttribute('id', `${data[i].content}`);
@@ -96,14 +84,5 @@ async function loadcontentWeek () {
                 }
             }
 }
-
-
 loadContentDay()
 loadcontentWeek()   
-    
-    
-    
-
-
-// var dateStr = '05/23/2014';
-// var day = getDayName(dateStr, "nl-NL"); // Gives back 'Vrijdag' which is Dutch for Friday.
