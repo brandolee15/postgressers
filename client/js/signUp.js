@@ -14,7 +14,7 @@ async function signUpDatabase(username, password){
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(post)
         };
-        const response = await fetch('http://localhost:3000/register', options);
+        const response = await fetch('https://postgressers.herokuapp.com/register', options);
         
         if(response.status === 201) {
             const data = await response.json();

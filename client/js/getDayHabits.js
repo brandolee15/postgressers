@@ -15,7 +15,7 @@ async function loadContentDay() {
                 headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
                 
             };
-            const response = await fetch('http://localhost:3000/habits/day', options);
+            const response = await fetch('https://postgressers.herokuapp.com/habits/day', options);
             const data = await response.json();
             for (let i = 0; i < data.length; i++) {
                 const habit = data[i].content
@@ -55,7 +55,7 @@ async function loadcontentWeek () {
                 method: 'GET',
                 headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
             };
-            const response = await fetch('http://localhost:3000/habits/week', options);
+            const response = await fetch('https://postgressers.herokuapp.com/habits/week', options);
             const data = await response.json();
             console.log(data)
             for (let i = 0; i < data.length; i++) {

@@ -10,7 +10,7 @@ async function setDayHabbits(){
             method: 'GET',
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken }
         };
-        const response = await fetch('http://localhost:3000/habits/day', options);
+        const response = await fetch('https://postgressers.herokuapp.com/habits/day', options);
         const data = await response.json();
         const dayList = document.getElementById('day-list')
         for (let i = 0; i < data.length; i++) {
@@ -39,7 +39,7 @@ async function setDayHabbits(){
                 headers: {'Content-Type' : 'application/JSON', "Authorization": "Bearer " + accessToken },
                 body: JSON.stringify(e)
               }
-              fetch('http://localhost:3000/habits/day', options)
+              fetch('https://postgressers.herokuapp.com/habits/day', options)
               .then((response) => response.json())
               .then(done.disabled = true );
             })
@@ -56,7 +56,7 @@ async function setWeekHabbits(){
             method: 'GET',
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken }
         };
-        const response = await fetch('http://localhost:3000/habits/week', options);
+        const response = await fetch('https://postgressers.herokuapp.com/habits/week', options);
         const data = await response.json();
         const dayList = document.getElementById('week-list')
         for (let i = 0; i < data.length; i++) {
@@ -86,7 +86,7 @@ async function setWeekHabbits(){
                 body: JSON.stringify(e)
               
               }
-              fetch('http://localhost:3000/habits/week', options)
+              fetch('https://postgressers.herokuapp.com/habits/week', options)
               .then((response) => response.json())
               .then(done.disabled = true );
             })

@@ -29,7 +29,7 @@ async function submitDay(content){
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
             body: JSON.stringify(post)
         };
-        const response = await fetch('http://localhost:3000/habits/day', options);
+        const response = await fetch('https://postgressers.herokuapp.com/habits/day', options);
         alert('Daily Habit has been submitted!')
     } catch (err) {
         console.warn(err);
@@ -46,7 +46,7 @@ async function submitWeek(content){
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
             body: JSON.stringify(post)
         };
-        const response = await fetch('http://localhost:3000/habits/week', options);
+        const response = await fetch('https://postgressers.herokuapp.com/habits/week', options);
         alert('Weekly Habit has been submitted!')
     } catch (err) {
         console.warn(err);
