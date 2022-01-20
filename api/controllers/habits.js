@@ -110,7 +110,7 @@ router.post('/day', authenticateToken, (req, res) => {
 
                 if (item.date === today) {
                     console.log("Habit already exists!")
-                    res.redirect('back');
+                    res.statusCode(409);
                 }
                 else {
                     dates.push({ date: today, complete: false });
@@ -118,7 +118,7 @@ router.post('/day', authenticateToken, (req, res) => {
                     habit.save()
                         .then(habit => {
                             console.log(habit);
-                            res.redirect('back');
+                            res.statusCode(205);
                         })
                         .catch(err => console.log(err));
                 }
@@ -145,7 +145,7 @@ router.post('/day', authenticateToken, (req, res) => {
                 .save()
                 .then(habit => {
                     console.log(habit);
-                    res.redirect('back');
+                    res.statusCode(201);
                 })
                 .catch(err => console.log(err));
         }
@@ -165,7 +165,7 @@ router.post('/week', authenticateToken, (req, res) => {
             dates.find(function (item, index) {
                 if (item.date === today) {
                     console.log("Habit already exists!")
-                    res.redirect('back');
+                    res.statusCode(409);
                 }
                 else {
                     dates.push({ date: today, complete: 'none' });
@@ -173,7 +173,7 @@ router.post('/week', authenticateToken, (req, res) => {
                     habit.save()
                         .then(habit => {
                             console.log(habit);
-                            res.redirect('back');
+                            res.statusCode(205);
                         })
                         .catch(err => console.log(err));
                 }
@@ -195,7 +195,7 @@ router.post('/week', authenticateToken, (req, res) => {
                 .save()
                 .then(habit => {
                     console.log(habit);
-                    res.redirect('back');
+                    res.statusCode(201);
                 })
                 .catch(err => console.log(err));
         }
