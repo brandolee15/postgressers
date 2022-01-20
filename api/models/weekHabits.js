@@ -13,7 +13,12 @@ const weekHabit = new mongoose.Schema({
     },
     complete: {
         type: Boolean
-    }},{
+    },
+    streak: {
+        type: Number,
+        default: 0
+    }
+    },{
         timestamps: true
 })
 

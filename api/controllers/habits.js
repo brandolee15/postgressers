@@ -253,14 +253,19 @@ router.put("/day", authenticateToken, (req, res) => {
 
 
     HabitDay.findOne(filter).then( async habit => {
-
         for ( i = 0; i < habit.dates.length; i ++) {
             if (habit.dates[i].date === d) {
-            habit.dates[i].complete = true;
-            habit = await habit.save()
+                if (i != 0) {
+                    if (habit.dates[i-1].complete === false){
+                        habit.streak = 1;
+                    }
+                }
+                habit.dates[i].complete = true;
+                habit = await habit.save();
             }
         }
-        
+        habit.streak += 1;
+        habit = await habit.save();
     })
 })
 
@@ -274,14 +279,9 @@ router.put("/week", authenticateToken, (req, res) => {
 
 
     HabitWeek.findOne(filter).then( async habit => {
-
-        // for ( i = 0; i < habit.dates.length; i ++) {
-        //     if (habit.dates[i].date === d) {
-            habit.complete = true;
-            habit = await habit.save()
-        //     }
-        // }
-        
+        habit.streak += 1;
+        habit.complete = true;
+        habit = await habit.save()  
     })
      
      

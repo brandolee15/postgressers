@@ -11,7 +11,11 @@ const dayHabit = new mongoose.Schema({
     dates: [{
         date: String,
         complete: Boolean
-    }]
+    }],
+    streak: {
+        type: Number,
+        default: 0
+    }
     },{
         timestamps: true
 })
