@@ -29,8 +29,6 @@ async function loadContentDay() {
                 habitGridDay.appendChild(entry);
                 let name = document.createElement('div');
                 name.setAttribute('class', 'col');
-                name.setAttribute('align', 'center');
-                name.setAttribute('style', 'border:1px solid #ffffff !important');
                 name.textContent = habit;
                 entry.appendChild(name);
                 for (let j = 0; j < 7; j++ ) {
@@ -39,6 +37,8 @@ async function loadContentDay() {
                     checkbox.setAttribute('id', `${data[i].content}-${getDayName(data[i].dates[j].date)}`);
                     checkbox.setAttribute('align', 'center');
                     checkbox.setAttribute('style', 'border:1px solid #ffffff !important');
+                    checkbox.setAttribute('align', 'center')
+                    checkbox.setAttribute('style', 'border:1px solid #000000 !important')
                     entry.appendChild(checkbox)
                     let dayOfWeek = getDayName(data[i].dates[j].date)
                 
