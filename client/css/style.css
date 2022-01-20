@@ -18,16 +18,35 @@ h1{
     color: black;
 }
 
+body {
+    height: 100%;
+    width: auto;
+}
+
 .homepage{
     background-image: url("assets/background\ image.jpeg");
     height: 100%;
+    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     /* filter: blur(8px);
     -webkit-filter: blur(8px); */
-
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="homepage"] {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      /* top: 0;
+      left: 0; */
+      background-repeat: round;
+      background-size: auto;
+    }
+}
+
 h3, h6{
     text-align: center;
     font-weight: bold;
@@ -112,6 +131,7 @@ button{
     display       : flex;
     flex-direction: column;
     align-items   : center;
+    
 }
 
 
@@ -153,7 +173,7 @@ button{
 .habitat-container2 {
     color         : white;
     position      : fixed;
-    top           : 350px;
+    top           : 400px;
     left          : 50%;
     padding       : 20px;
     width         : 300px;
@@ -163,4 +183,29 @@ button{
     display       : flex;
     flex-direction: column;
     align-items   : center;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="habitat-container"] {
+      width: 55%;
+    }
+}
+
+/* @media only screen and (max-width: 768px) {
+    [class*="daily-container"] {
+        display: grid;
+        grid-template-columns: auto minmax(0,1fr);
+    }
+} */
+
+#logout {
+    background-color: #744011;
+    border-radius: 10px;
+    color: white;
+}
+
+#logout:hover {
+    background-color: wheat;
+    color: #744011;
 }
