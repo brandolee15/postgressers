@@ -34,7 +34,12 @@ async function setDayHabbits(){
             // add event listener to buttons 
 
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-            let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
+            let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+            data.dates.forEach(e => {
+                if (e.date === date && e.complete === true) {
+                    done.disabled = true;
+                };
+            });
             done.addEventListener('click', e => {
               e = { date: date,  complete: true, content: content };
               const options = {
@@ -84,6 +89,9 @@ async function setWeekHabbits(){
 
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
+            if (data.date === date && data.complete === true) {
+                done.disabled = true;
+            };
             done.addEventListener('click', e => {
               e = { date: date,  complete: true, content: content };
               const options = {

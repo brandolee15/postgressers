@@ -23,14 +23,14 @@ async function loadContentDay() {
                 let name = document.createElement('div');
                 name.setAttribute('class', 'col');
                 name.setAttribute('align', 'center')
-                name.setAttribute('style', 'border:1px solid #ff00ff !important');
+                name.setAttribute('style', 'border:1px solid #000000 !important');
                 name.textContent = habit;
                 entry.appendChild(name);
                 for (let j = 0; j < 7; j++ ) {
                     let checkbox = document.createElement('div');
                     checkbox.setAttribute('class', 'col');
                     checkbox.setAttribute('align', 'center')
-                    checkbox.setAttribute('style', 'border:1px solid #ff00ff !important')
+                    checkbox.setAttribute('style', 'border:1px solid #000000 !important')
                     entry.appendChild(checkbox)
                 //    done missed not done yet function
 
