@@ -35,9 +35,10 @@ router.get("/day", authenticateToken, (req, res) => {
             err = 'No habits found';
             res.json(err);
         } else {
-            currentDate = getD(0);
+            let currentDate = new Date();
             habits.forEach(habit => {
-                if (currentDate >= habit.dates[0].date) {
+                let oldDate = new Date(habit.dates[0].date)
+                if (currentDate.getTime() >= oldDate.getTime()) {
                     let d = new Date().getDay();
                     let day = d + (d == 0 ? -6:1);
                     for ( i = 0; i < habit.dates.length; i ++) {
