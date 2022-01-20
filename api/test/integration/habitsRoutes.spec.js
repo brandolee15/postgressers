@@ -1,0 +1,22 @@
+const { request } = require("../../server");
+
+describe('habits endpoints', () => {
+    let api; 
+    beforeEach(async () => {
+        await resetTestDB()
+    });
+
+    beforeAll(async () => {
+        api = app.listen(5000, () => console.log('Test server running on port 5000'))
+    });
+
+    afterAll(async () => {
+        console.log('Stopping test server on port 5000')
+        await api.close()
+    })
+
+    it('should return a list of all day habits in database', async () => {
+        const res = await request(api).get('/habits');
+        expect(res.statusCode).toEqual(200);
+    })
+})

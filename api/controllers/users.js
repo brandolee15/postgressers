@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 router.get('/login', (req, res) => async (req, res) => {
     try {
         const users = await User.all;
-        res.json({users})
+        res.status(200).json({users})
     }catch(err){
         res.status(500).json({err})
     }

@@ -105,3 +105,5 @@ async function setWeekHabbits(){
 setUsername()
 setDayHabbits()
 setWeekHabbits()
+
+module.exports = { setUsername, setDayHabbits, setWeekHabbits };

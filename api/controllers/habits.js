@@ -35,7 +35,7 @@ router.get("/day", authenticateToken, (req, res) => {
             err = 'No habits found'
             res.json(err)
         }
-        else {res.json(habits)}
+        else {res.status(200).json(habits)}
 
 
     })})
