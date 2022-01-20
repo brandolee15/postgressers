@@ -19,7 +19,7 @@ async function signUpDatabase(username, password){
         if(response.status === 201) {
             const data = await response.json();
             localStorage.setItem('accessToken', data.accessToken);
-            window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
+            window.open('https://habit-at/home.html', '_self');
         } else if(response.status === 409) {
             alert('Username already exists!')
         }

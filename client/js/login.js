@@ -19,7 +19,7 @@ async function loginDatabase(username, password){
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('username', username);
         if(response.status === 200){
-            window.open(window.location.href.slice(0, -11) + '/home.html', '_self');
+            window.open('https://habit-at/home.html', '_self');
         } else {
             alert("Invalid username/password")
         }
