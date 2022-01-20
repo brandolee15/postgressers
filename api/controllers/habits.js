@@ -29,16 +29,28 @@ function authenticateToken(req, res, next) {
 
 // -------Get User Habits (Day) -----//
 router.get("/day", authenticateToken, (req, res) => {
-    let userName = req.user
+    let userName = req.user;
     HabitDay.find({ userName: userName }).then(habits => {
         if (!habits) {
-            err = 'No habits found'
-            res.json(err)
-        }
-        else {res.json(habits)}
-
-
-    })})
+            err = 'No habits found';
+            res.json(err);
+        } else {
+            currentDate = getD(0);
+            habits.forEach(habit => {
+                if (currentDate >= habit.dates[0].date) {
+                    let d = new Date().getDay();
+                    let day = d + (d == 0 ? -6:1);
+                    for ( i = 0; i < habit.dates.length; i ++) {
+                        habit.dates[i].date = getD(i + day);
+                        habit.dates[i].complete = false;
+                        habit = await habit.save()
+                    };
+                };
+            });
+            res.json(habits);
+        };
+    });
+});
 
     
     // try { async user => {
@@ -68,11 +80,27 @@ router.get("/week", authenticateToken, (req, res) => {
         if (!habits) {
             err = 'No habits found'
             res.json(err)
+        } else {
+            let currentDate = new Date();
+            habits.forEach(habit => {
+                let oldDate = new Date(habit.date)
+                oldDate.setDate(oldDate.getDate() + 7)
+                if (currentDate.getTime() >= oldDate.getTime()) {
+                    while (oldDate.getTime() <= currentDate.getTime()) {
+                        oldDate.setDate(oldDate.getDate() + 7);
+                    }
+                    if (oldDate.getTime() > currentDate.getTime()) {
+                        oldDate.setDate(oldDate.getDate() - 7);
+                    }
+                    habit.date = oldDate.toLocaleDateString('en-GB').split( '/' ).reverse( ).join( '-' );
+                    habit.complete = false;
+                    habit = await habit.save()
+                }
+            });
+            res.json(habits)
         }
-        else {res.json(habits)}
-
-
-    })})
+    })
+})
     // try { user => {
     //     weekHabit.find({ userName: req.query.user });
     //     var weeks = [];
@@ -93,23 +121,6 @@ function getD(n) {
     let d = new Date();
     d.setDate(d.getDate() + n);
     var newDate = d.toLocaleDateString('en-GB').split( '/' ).reverse( ).join( '-' );
-    var day;
-    switch (d.getDay()) {
-        case 0: day = 'Sun';
-            break;
-        case 1: day = 'Mon';
-            break;
-        case 2: day = 'Tue';
-            break;
-        case 3: day = 'Wed';
-            break;
-        case 4: day = 'Thu';
-            break;
-        case 5: day = 'Fri';
-            break;
-        case 6: day = 'Sat';
-            break;
-    }
     return (newDate);
 }
 

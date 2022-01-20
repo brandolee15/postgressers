@@ -35,7 +35,7 @@ async function setDayHabbits(){
 
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            data.dates.forEach(e => {
+            data[i].dates.forEach(e => {
                 if (e.date === date && e.complete === true) {
                     done.disabled = true;
                 };
@@ -89,7 +89,7 @@ async function setWeekHabbits(){
 
             let tzoffset = (new Date()).getTimezoneOffset() * 60000;
             let date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
-            if (data.date === date && data.complete === true) {
+            if (data[i].date === date && data[i].complete === true) {
                 done.disabled = true;
             };
             done.addEventListener('click', e => {
