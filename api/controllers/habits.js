@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
+router.use(cors())
 //---------User model----------//
 const User = require('../models/User');
 const HabitDay = require('../models/dayHabits');
