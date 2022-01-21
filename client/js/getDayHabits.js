@@ -39,11 +39,11 @@ async function loadContentDay() {
                     let dayOfWeek = getDayName(data[i].dates[j].date)
                         if (data[i].dates[j].complete == true) {
                         document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = '#E6C919"';
-                        document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'complete!'
+                        document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'Complete!'
                         }
                         else {
                             document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = '#EE4447';
-                            document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'not done yet'
+                            document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'Not done yet!'
                         }
                 }
             }  
@@ -77,10 +77,10 @@ async function loadcontentWeek () {
                 entry.appendChild(checkbox);
                 if (data[i].complete == true) {
                     document.getElementById(`check${data[i].content}`).style.backgroundColor = '#E6C919"'
-                    document.getElementById(`check${data[i].content}`).textContent = 'complete!'
+                    document.getElementById(`check${data[i].content}`).textContent = 'Complete!'
                 } else {
                     document.getElementById(`check${data[i].content}`).style.backgroundColor = '#EE4447'
-                    document.getElementById(`check${data[i].content}`).textContent = 'not done yet'
+                    document.getElementById(`check${data[i].content}`).textContent = 'Not done yet!'
                 }
             }
 }
