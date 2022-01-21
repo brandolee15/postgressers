@@ -71,6 +71,7 @@ async function loadcontentWeek () {
                 name.textContent = habit;
                 entry.appendChild(name);
                 let checkbox = document.createElement('div')
+                checkbox.setAttribute('class', 'col');
                 checkbox.setAttribute('align', 'center');
                 checkbox.setAttribute('id', `check${data[i].content}`)
                 checkbox.setAttribute('style', 'border:1px solid #ffffff !important');
