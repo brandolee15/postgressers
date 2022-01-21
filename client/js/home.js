@@ -74,7 +74,7 @@ async function setWeekHabbits(){
             done.setAttribute('class', 'btn-dark')
             done.setAttribute('class', 'done')
             node.appendChild(done);
-            done.textContent = 'Mark as done'
+            done.textContent = 'Done'
             let content = data[i].content;
 
             // add event listener to buttons 
