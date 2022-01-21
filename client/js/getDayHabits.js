@@ -38,11 +38,11 @@ async function loadContentDay() {
                     entry.appendChild(checkbox)
                     let dayOfWeek = getDayName(data[i].dates[j].date)
                         if (data[i].dates[j].complete == true) {
-                        document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = 'blue';
+                        document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = '#E6C919"';
                         document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'complete!'
                         }
                         else {
-                            document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = 'red';
+                            document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).style.backgroundColor = '#EE4447';
                             document.getElementById(`${data[i].content}-${getDayName(data[i].dates[j].date)}`).textContent = 'not done yet'
                         }
                 }
@@ -76,10 +76,10 @@ async function loadcontentWeek () {
                 checkbox.setAttribute('style', 'border:1px solid #ffffff !important');
                 entry.appendChild(checkbox);
                 if (data[i].complete == true) {
-                    document.getElementById(`check${data[i].content}`).style.backgroundColor = 'blue'
+                    document.getElementById(`check${data[i].content}`).style.backgroundColor = '#E6C919"'
                     document.getElementById(`check${data[i].content}`).textContent = 'complete!'
                 } else {
-                    document.getElementById(`check${data[i].content}`).style.backgroundColor = 'red'
+                    document.getElementById(`check${data[i].content}`).style.backgroundColor = '#EE4447'
                     document.getElementById(`check${data[i].content}`).textContent = 'not done yet'
                 }
             }

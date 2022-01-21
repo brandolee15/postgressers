@@ -20,8 +20,11 @@ async function setDayHabbits(){
             // create check buttons 
             let done = document.createElement('button');
             done.setAttribute('id', `done${data[i].content}`);
+            done.setAttribute('class', 'btn')
+            done.setAttribute('class', 'btn-dark')
+            done.setAttribute('class', 'done')
             node.appendChild(done);
-            done.textContent = 'b'
+            done.textContent = 'Mark as done'
             let content = data[i].content;
 
             // add event listener to buttons 
@@ -67,9 +70,11 @@ async function setWeekHabbits(){
             // create check buttons 
             let done = document.createElement('button');
             done.setAttribute('id', `done${data[i].content}`);
+            done.setAttribute('class', 'btn')
+            done.setAttribute('class', 'btn-dark')
             done.setAttribute('class', 'done')
             node.appendChild(done);
-            done.textContent = 'b'
+            done.textContent = 'Mark as done'
             let content = data[i].content;
 
             // add event listener to buttons 
